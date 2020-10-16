@@ -100,8 +100,8 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 		}
 				
 	}
-
-	w.Header().Set("Content-Type", "application/json")
+	
+	w.Write([]byte("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"))	
 	xml.NewEncoder(w).Encode(order)
 }
 

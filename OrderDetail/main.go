@@ -87,7 +87,6 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 		}
 
 		for resultDetail.Next() {
-
 			
 			err := resultDetail.Scan(&orderdet.OrderID,&orderdet.ProductID,  &orderdet.ProductName, &orderdet.UnitPrice, &orderdet.Quantity)
 
