@@ -35,7 +35,7 @@ type OrdersDetail struct {
 func getOrders(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var orders []Orders
+
 	var order Orders	
 	var orderdet OrdersDetail	
 
@@ -98,13 +98,11 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 			order.OrdersDet = append(order.OrdersDet, orderdet)	
 			
 		}
-		
-		orders = append(orders, order)
-		
+				
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(orders)
+	json.NewEncoder(w).Encode(order)
 }
 
 
@@ -122,7 +120,7 @@ func main() {
 	r := mux.NewRouter()
 
 	// Route handles & endpoints
-	r.HandleFunc("/orders", getOrders).Methods("POST")
+	r.HandleFunc("/orders", getOrders).Methods("GET")
 	
 	// Start server
 	log.Fatal(http.ListenAndServe(":8080", r))

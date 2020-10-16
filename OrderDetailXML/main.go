@@ -15,27 +15,27 @@ var err error
 
 // Order struct (Model) ...
 type Orders struct {
-	OrderID      string        `xml:"orderID"`
-	CustomerID   string        `xml:"customerID"`
-	EmployeeID   string        `xml:"employeeID"`
-	OrderDate    string        `xml:"orderDate"`
-	OrdersDet []OrdersDetail   `xml:"OrdersDet"`
+	OrderID      string        `json:"orderID"`
+	CustomerID   string        `json:"customerID"`
+	EmployeeID   string        `json:"employeeID"`
+	OrderDate    string        `json:"orderDate"`
+	OrdersDet []OrdersDetail   `json:"OrdersDet"`
 	
 }
 
 type OrdersDetail struct {
-	OrderID      string  `xml:"orderID"`
-	ProductID  	 string  `xml:"ProductID"`
-	ProductName  string  `xml:"ProductName"`
-	UnitPrice    float64 `xml:"UnitPrice"`
-	Quantity     int     `xml:"Quantity"`
+	OrderID      string  `json:"orderID"`
+	ProductID  	 string  `json:"ProductID"`
+	ProductName  string  `json:"ProductName"`
+	UnitPrice    float64 `json:"UnitPrice"`
+	Quantity     int     `json:"Quantity"`
 }
 // Get all orders
 
 func getOrders(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var orders []Orders
+
 	var order Orders	
 	var orderdet OrdersDetail	
 
@@ -98,13 +98,11 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 			order.OrdersDet = append(order.OrdersDet, orderdet)	
 			
 		}
-		
-		orders = append(orders, order)
-		
+				
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	xml.NewEncoder(w).Encode(orders)
+	xml.NewEncoder(w).Encode(order)
 }
 
 
@@ -122,7 +120,7 @@ func main() {
 	r := mux.NewRouter()
 
 	// Route handles & endpoints
-	r.HandleFunc("/orders", getOrders).Methods("POST")
+	r.HandleFunc("/orders", getOrders).Methods("GET")
 	
 	// Start server
 	log.Fatal(http.ListenAndServe(":8080", r))
