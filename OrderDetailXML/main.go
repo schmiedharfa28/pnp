@@ -33,9 +33,7 @@ type OrdersDetail struct {
 // Get all orders
 
 func getOrders(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-
-
+	
 	var order Orders	
 	var orderdet OrdersDetail	
 
