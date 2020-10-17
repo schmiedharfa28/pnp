@@ -85,7 +85,6 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 		}
 
 		for resultDetail.Next() {
-
 			
 			err := resultDetail.Scan(&orderdet.OrderID,&orderdet.ProductID,  &orderdet.ProductName, &orderdet.UnitPrice, &orderdet.Quantity)
 
@@ -98,6 +97,7 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 		}
 				
 	}
+	
 	//header for exml
 	w.Write([]byte("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"))	
 	xml.NewEncoder(w).Encode(order)

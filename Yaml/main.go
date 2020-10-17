@@ -31,7 +31,10 @@ func main() {
 	if err != nil {
 		fmt.Printf("Error parsing YAML file: %s\n", err)
 	}
-
+	
 	fmt.Printf("Host: %v\n", yamlConfig.Connection.Host)
+	fmt.Printf("Password: %v\n", yamlConfig.Connection.Password)
+	fmt.Printf("Port: %v\n", yamlConfig.Connection.Port)
+	fmt.Printf("User: %v\n", yamlConfig.Connection.User)
 
 }

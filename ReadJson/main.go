@@ -28,7 +28,7 @@ type OrdersDetail struct {
 }
 
 func main() {
-
+	
 	url := "http://localhost:8080/orders"
 
 	spaceClient := http.Client{
@@ -74,6 +74,8 @@ func main() {
 		fmt.Println("Product Name",product.ProductName)
 		fmt.Println("Quantity",product.Quantity)
 		fmt.Println("Unit Price",product.UnitPrice)
-    }
+	}
+	
+	
 	
 }

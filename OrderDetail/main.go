@@ -20,7 +20,7 @@ type Orders struct {
 	CustomerID   string        `json:"customerID"`
 	EmployeeID   string        `json:"employeeID"`
 	OrderDate    string        `json:"orderDate"`
-	OrdersDet []OrdersDetail   `json:"OrdersDet"`
+	OrdersDet []OrdersDetail   `json:"ordersDetail"`
 	
 }
 
@@ -31,6 +31,7 @@ type OrdersDetail struct {
 	UnitPrice    float64 `json:"UnitPrice"`
 	Quantity     int     `json:"Quantity"`
 }
+
 // Get all orders
 
 func getOrders(w http.ResponseWriter, r *http.Request) {
@@ -64,19 +65,19 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 		}
 
 		sqlDetial := `SELECT
-					order_details.OrderID		
-					, products.ProductID
-					, products.ProductName
-					, order_details.UnitPrice
-					, order_details.Quantity
-				FROM
-					order_details
-					INNER JOIN products 
-						ON (order_details.ProductID = products.ProductID)
-				WHERE order_details.OrderID	= ?`
+						order_details.OrderID		
+						, products.ProductID
+						, products.ProductName
+						, order_details.UnitPrice
+						, order_details.Quantity
+					FROM
+						order_details
+						INNER JOIN products 
+							ON (order_details.ProductID = products.ProductID)
+					WHERE order_details.OrderID	= ?`
 
 		orderID := &order.OrderID
-		
+		fmt.Println(*orderID)
 		resultDetail, errDet := db.Query(sqlDetial, *orderID)
 
 		defer resultDetail.Close()
@@ -87,7 +88,7 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 
 		for resultDetail.Next() {
 			
-			err := resultDetail.Scan(&orderdet.OrderID,&orderdet.ProductID,  &orderdet.ProductName, &orderdet.UnitPrice, &orderdet.Quantity)
+			err := resultDetail.Scan(&orderdet.OrderID, &orderdet.ProductID, &orderdet.ProductName, &orderdet.UnitPrice, &orderdet.Quantity)
 
 			if err != nil {
 				panic(err.Error())
@@ -101,6 +102,7 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(order)
+
 }
 
 
