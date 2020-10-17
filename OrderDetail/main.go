@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -43,8 +44,7 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 				OrderID,
 				IFNULL(CustomerID,'') CustomerID,
 				IFNULL(EmployeeID,'') EmployeeID,
-				IFNULL(OrderDate,'') OrderDate
-				
+				IFNULL(OrderDate,'') OrderDate				
 			FROM orders WHERE OrderID IN (11024)`
 
 	result, err := db.Query(sql)
@@ -62,7 +62,6 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			panic(err.Error())
 		}
-
 
 		sqlDetial := `SELECT
 					order_details.OrderID		
@@ -121,6 +120,8 @@ func main() {
 	// Route handles & endpoints
 	r.HandleFunc("/orders", getOrders).Methods("GET")
 	
+	fmt.Println("Server on :8080")
 	// Start server
 	log.Fatal(http.ListenAndServe(":8080", r))
+	
 }
