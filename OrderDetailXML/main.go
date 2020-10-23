@@ -98,7 +98,7 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 				
 	}
 	
-	//header for exml
+	//header for xml
 	w.Write([]byte("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"))	
 	xml.NewEncoder(w).Encode(order)
 }
@@ -108,6 +108,7 @@ func getOrders(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	db, err = sql.Open("mysql", "root:nadipw@tcp(127.0.0.1:3306)/northwind")
+	
 	if err != nil {
 		panic(err.Error())
 	}
