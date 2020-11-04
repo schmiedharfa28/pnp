@@ -1,6 +1,7 @@
 package function
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 )
@@ -21,6 +22,7 @@ func RouteIndexGet(w http.ResponseWriter, r *http.Request) {
 
 func RouteSubmitPost(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
+		
 		var tmpl = template.Must(template.New("result").ParseFiles("view.html"))
 
 		if err := r.ParseForm(); err != nil {
@@ -32,7 +34,7 @@ func RouteSubmitPost(w http.ResponseWriter, r *http.Request) {
 		var message = r.Form.Get("message")
 
 		var data = map[string]string{"name": name, "message": message}
-
+		fmt.Println(data["name"])
 		if err := tmpl.Execute(w, data); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}

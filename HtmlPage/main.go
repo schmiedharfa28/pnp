@@ -6,18 +6,19 @@ import (
 	"log"
 	"net/http"
 
-	cm "pnp/HtmlPage/common"
+	st "pnp/HtmlPage/common"
 
 	_ "github.com/go-sql-driver/mysql"
 )
+
 
 var db *sql.DB
 var err error
 
 func Index(w http.ResponseWriter, r *http.Request) {
 
-	
-	var customers []cm.Customer
+	var customers []st.Customer
+
 
 	sql := `SELECT
 				CustomerID,
@@ -41,7 +42,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 	for result.Next() {
 
-		var customer cm.Customer
+		var customer st.Customer
 		err := result.Scan(&customer.CustomerID, &customer.CompanyName, &customer.ContactName,
 			&customer.ContactTitle, &customer.Address, &customer.City, &customer.Country,
 			&customer.Phone, &customer.PostalCode)
@@ -73,5 +74,9 @@ func main() {
 	log.Println("Server started on: http://localhost:8081")
 	http.HandleFunc("/", Index)
 	http.ListenAndServe(":8081", nil)
+	
 
 }
+
+
+

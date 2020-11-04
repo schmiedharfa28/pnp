@@ -46,12 +46,12 @@ func RouteSubmitPost(w http.ResponseWriter, r *http.Request) {
 		var lastname = r.Form.Get("lastname")
 
 		var data = map[string]string{"firstname": firstname, "lastname": lastname}
-
+		
 		if err := tmpl.Execute(w, data); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
-		//tugas insertkan ke database ke table user
+		//tugas insertkan ke database ke table employees
 
 		return
 	}

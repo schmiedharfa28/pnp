@@ -69,13 +69,13 @@ func main() {
 	fmt.Println(orders.OrderID)
 
 	for _, product := range orders.OrdersDet {
+
 		fmt.Println("Order ID",product.OrderID) 
 		fmt.Println("Product ID",product.ProductID)
 		fmt.Println("Product Name",product.ProductName)
 		fmt.Println("Quantity",product.Quantity)
 		fmt.Println("Unit Price",product.UnitPrice)
+			
 	}
-	
-	
-	
+			
 }

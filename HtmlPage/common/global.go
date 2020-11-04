@@ -1,4 +1,4 @@
-package common
+package global
 
 type Customer struct {
 	CustomerID   string `json:"CustomerID"`
@@ -10,4 +10,8 @@ type Customer struct {
 	Country      string `json:"Country"`
 	Phone        string `json:"Phone"`
 	PostalCode   string `json:"PostalCode"`
+}
+
+type Office struct {
+	OfficeName string `json:"officename,omitempty"`
 }
